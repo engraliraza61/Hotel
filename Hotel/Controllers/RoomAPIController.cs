@@ -68,34 +68,34 @@ namespace Hotel.Controllers
             ResponseObject.Data = RoomList.Skip(ResponseObject.PageSize * (PageNumber - 1)).Take(ResponseObject.PageSize).ToList();
             return Ok(ResponseObject);
         }
-        [HttpGet]
-        [Route("GetAllRoom")]
-        public async Task<ActionResult> GetAllRoom(int PageNumber)
-        {
-            await Task.Delay(0);
-            ListClass ResponseObject = new ListClass();
-            if (PageNumber == 0)
-            {
-                ResponseObject.CurrentPage = 1;
-            }
-            else
-            {
-                ResponseObject.CurrentPage = PageNumber;
-            }
-            var UserList = (from fod in _project.User
-                            join std in _project.Role on fod.RoleTitle equals std.RoleTitle
-                            select new
-                            {
-                                UserId = fod.UserId,
-                                Name = fod.UserTitle,
-                                Email = fod.Email,
-                                Status = fod.UserStatus,
-                                RoleTitle = std.RoleTitle,
-                                RoleID = std.RoleId,
-                            }).ToList();
-            ResponseObject.TotalRecords = UserList.Count;
-            ResponseObject.Data = UserList.Skip(ResponseObject.PageSize * (PageNumber - 1)).Take(ResponseObject.PageSize).ToList();
-            return Ok(ResponseObject);
-        }
+        //[HttpGet]
+        //[Route("GetAllRoom")]
+        //public async Task<ActionResult> GetAllRoom(int PageNumber)
+        //{
+        //    await Task.Delay(0);
+        //    ListClass ResponseObject = new ListClass();
+        //    if (PageNumber == 0)
+        //    {
+        //        ResponseObject.CurrentPage = 1;
+        //    }
+        //    else
+        //    {
+        //        ResponseObject.CurrentPage = PageNumber;
+        //    }
+        //    var UserList = (from fod in _project.User
+        //                    join std in _project.Role on fod.RoleTitle equals std.RoleTitle
+        //                    select new
+        //                    {
+        //                        RoomId = fod.UserId,
+        //                        Name = fod.UserTitle,
+        //                        Email = fod.Email,
+        //                        Status = fod.UserStatus,
+        //                        RoleTitle = std.RoleTitle,
+        //                        RoleID = std.RoleId,
+        //                    }).ToList();
+        //    ResponseObject.TotalRecords = UserList.Count;
+        //    ResponseObject.Data = UserList.Skip(ResponseObject.PageSize * (PageNumber - 1)).Take(ResponseObject.PageSize).ToList();
+        //    return Ok(ResponseObject);
+        //}
     }
 }
