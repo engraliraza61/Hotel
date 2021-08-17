@@ -1,0 +1,296 @@
+﻿
+@{
+    ViewData["Title"] = "Customer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-wrapper">
+    <div class="content">
+        <h1>User</h1>
+
+        <div class="card">
+            <div class="card-header">
+                Add User
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        Name
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control" type="text" id="txtName" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        Email
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control" type="text" id="txtEmail" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        Role
+                    </div>
+                    <div class="col-md-6">
+                        <select id="lstRole" class="form-control">
+                            <option value="0">---Select Role---</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        Password
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control" type="text" id="txtPassword" />
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-success" type="button" id="btnAddUser">
+                    Add User
+                </button>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalUpdateUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Update User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body ">
+                        <div class="row">
+                            <div class="col-md-6">
+                                Name
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" id="txtUpdateName" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                Email
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" id="txtUpdateEmail" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                Role
+                            </div>
+                            <div class="col-md-6">
+                                <select id="lstUpdateRole" class="form-control">
+                                    <option value="0">---Select Role---</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdateUser">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container" id="tblActive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>UserID</td>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>RoleTitle</td>
+                        <td>Status</td>
+                        <td>Actions</td>
+                    </tr>
+
+                </thead>
+                <tbody id="tblUser">
+                </tbody>
+            </table>
+        </div>
+        <div class="container" id="tblDeactive" style="display:none">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>UserID</td>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>RoleTitle</td>
+                        <td>Status</td>
+                        <td>Actions</td>
+                    </tr>
+
+                </thead>
+                <tbody id="tblDeactiveUser">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+
+        GetUser();
+        GetRoleList();
+        $('#btnAddUser').click(function () {
+            var Name = $('#txtName').val();
+            var Email = $('#txtEmail').val();
+            var Password = $('#txtPassword').val();
+            var RoleID = $('#lstRole').val();
+            var jsonObject = { "userTitle": Name, "email": Email, "password": Password, "roleId": RoleID };
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:44364/api/UserAPI/InsertUser",
+                contentType: "application/json",
+                data: JSON.stringify(jsonObject),
+                success: function (response) {
+                    if (response.status == "Insertion successfull") {
+                        $('#tblUser').html('');
+                        GetUser();
+                        alert("User Added Successfully");
+                        $('#txtName').val('');
+                        $('#txtEmail').val('');
+                        $('#txtPassword').val('');
+                        $('#lstRole').val('');
+                    }
+
+                }
+            });
+        });
+        $('#btnUpdateUser').click(function () {
+            var Name = $('#txtUpdateName').val();
+            var Email = $('#txtUpdateEmail').val();
+            var RoleID = $('#lstUpdateRole').val();
+            var jsonObject = { "userTitle": Name, "email": Email, "userId": userID, "roleId": RoleID };
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:44364/api/UserAPI/UpdateUser",
+                contentType: "application/json",
+                data: JSON.stringify(jsonObject),
+                success: function (response) {
+                    if (response.status == "Updated successfull") {
+                        $('#tblUser').html('');
+                        GetUser();
+                        alert("User Updated Successfully");
+                        $('#modalUpdateUser').modal('hide');
+                        $('#txtUpdateName').val('');
+                        $('#txtUpdateEmail').val('');
+                        $('#lstUpdateRole').val('');
+                    }
+
+                }
+            });
+        });
+        $('#btnDeactiveUser').click(function () {
+            $('#tblDeactiveUser').html('');
+            GetDeactiveUser();
+            $('#tblActive').slideUp();
+            $('#btnDeactiveUser').slideUp();
+            $('#tblDeactive').slideDown();
+            $('#btnActiveUser').slideDown();
+
+        });
+        var userID;
+        var updateRow;
+        $(document).on('click', '.btnRowUpdate', function () {
+            userID = $(this).attr('id');
+            var roleID = $(this).val();
+            updateRow = $(this).closest('tr');
+            var Name = $(updateRow).find('td').eq(1).html();
+            var Email = $(updateRow).find('td').eq(2).html();
+            $('#txtUpdateName').val(Name);
+            $('#txtUpdateEmail').val(Email);
+            $('#lstUpdateRole').val(roleID);
+            $('#modalUpdateUser').modal('show');
+
+
+        });
+        $(document).on('click', '.btnRowDelete', function () {
+            userID = $(this).attr('id');
+
+            var Status = 0;
+            var jsonObject = { "userId": userID, "userStatus": Status };
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:44364/api/UserAPI/DeleteUser",
+                contentType: "application/json",
+                data: JSON.stringify(jsonObject),
+                success: function (response) {
+                    if (response.status == "Delete successfull") {
+                        $('#tblUser').html('');
+                        GetUser();
+                        alert("User Deactivated");
+
+                    }
+
+                }
+            });
+        });
+        $(document).on('click', '.btnRowActive', function () {
+            userID = $(this).attr('id');
+            var Status = 1;
+            var jsonObject = { "userId": userID, "userStatus": Status };
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:44364/api/UserAPI/DeleteUser",
+                contentType: "application/json",
+                data: JSON.stringify(jsonObject),
+                success: function (response) {
+                    if (response.status == "Delete successfull") {
+                        $('#tblDeactiveUser').html('');
+                        GetDeactiveUser();
+                        alert("User Activated Successfully");
+
+                    }
+
+                }
+            });
+        });
+
+    });
+
+    function GetUser() {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:44364/api/UserAPI/AllUser",
+            contentType: "application/json",
+            success: function (response) {
+                $.each(response, function (index, value) {
+                    //var Status = "Deactive";
+                    /*value.userSatus = "Active";*/
+                    $('#tblUser').append("<tr><td>" + value.userId + "</td><td>" + value.userTitle + "</td><td>" + value.email + "</td><td>" + value.roleId + "</td><td>" + value.userStatus + "</td><td><button class='btn btn-danger btnRowDelete' id='" + value.userId + "'>Delete</button> | <button class='btn btn-warning btnRowUpdate' id='" + value.userId + "' value ='" + value.roleID + "'>Update</button></td></tr>");
+
+                });
+
+            }
+        });
+    }
+    function GetRoleList() {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:44364/api/RoleAPI/GetRole",
+            contentType: "application/json",
+            success: function (response) {
+                $.each(response, function (index, value) {
+                    $('#lstRole').append("<option value='" + value.roleId + "'>" + value.roleTitle + "</option>");
+                    $('#lstUpdateRole').append("<option value='" + value.roleId + "'>" + value.roleTitle + "</option>");
+                });
+
+            }
+        });
+    }
+</script>
+

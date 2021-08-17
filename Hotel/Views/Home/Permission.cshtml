@@ -1,0 +1,291 @@
+﻿
+@{
+    ViewData["Title"] = "Permission";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="modal" id="modalUpdatePermission">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-header">
+                    <h3>Student Update</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            PermissionTitle
+                        </div>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" id="updatetxtPermissionTitle" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            URL
+                        </div>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" id="updatetxtPermissionURL" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            IconCode
+                        </div>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" id="updatetxtIConCode" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            IS Menu
+                        </div>
+                        <div class="col-md-6">
+                            <input type="radio" name="txtIsMenu" id="updaterdIsMenuYes" />Yes
+                            <input type="radio" name="txtIsMenu" id="updaterdIsMenuNo" />No
+                        </div>
+                    </div>
+                    <div align="center"><button class="btn btn-success UpdatePermission">UPDATE</button></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="closeModalS" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="page-wrapper">
+    <div class="content">
+        <h1>Permission</h1>
+
+        <div class="card">
+            <div class="card-header">
+                Add Permission
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        PermissionTitle
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control" type="text" id="txtPermissionTitle" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        URL
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control" type="text" id="txtPermissionURL" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        IconCode
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control" type="text" id="txtIConCode" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        IS Menu
+                    </div>
+                    <div class="col-md-6">
+                        <input type="radio" name="txtIsMenu" id="rdIsMenuYes" />Yes
+                        <input type="radio" name="txtIsMenu" id="rdIsMenuNo" />No
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-success" type="button" id="btnAddPermission">
+                    Add Permission
+                </button>
+            </div>
+        </div>
+
+        <div class="container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>PermissionId</td>
+                        <td>PermissionTitle</td>
+                        <td>URL</td>
+                        <td>IconCode</td>
+                        <td>IsMenu</td>
+                        <td>Status</td>
+                        <td>Actions</td>
+                    </tr>
+
+                </thead>
+                <tbody id="tblPermission">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+            $(document).ready(function () {
+
+                GetPermission();
+
+                $('#btnAddPermission').click(function () {
+                    var Permission = $('#txtPermissionTitle').val();
+                    var URL = $('#txtPermissionURL').val();
+                    var IconCode = $('#txtIConCode').val();
+                    var IsMenu = 'false';
+                    if ($('#rdIsMenuYes').is(':checked')) {
+                        IsMenu = 'true'
+                    }
+                    var jsonObject = { "permissionUrl": URL, "permissionTitle": Permission, "iconCode": IconCode, "isMenu": IsMenu };
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:44364/api/PermissionAPI/InsertPermission",
+                        contentType: "application/json",
+                        data: JSON.stringify(jsonObject),
+                        success: function (response) {
+                            if (response.status == "Permission Added") {
+                                $('#tblPermission').html('');
+                                GetPermission();
+                                alert("Permission Added Successfully");
+                                $('#txtPermissionTitle').val('');
+                                $('#txtPermissionURL').val('');
+                                $('#txtIConCode').val('');
+                            }
+                        }
+                    });
+                });
+            });
+
+            function GetPermission() {
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:44364/api/PermissionAPI/GetPermission",
+                          
+                    contentType: "application/json",
+                    success: function (response) {
+                        $.each(response, function (index, value) {
+                            Status = "Active";
+                            if (value.permissionStatus == 0) {
+                                Status = "Deactive";
+                                var Deactivate = '<button class="btn btn-danger btnActivate" id="BtnActive' + value.permissionId + '">Activate</button>'
+                            }
+                            else {
+                                Status = "Active";
+                                Deactivate = '<button class="btn btn-primary btnDeactivate" id="BtnDeactive' + value.permissionId + '">Deactivate</button>'
+                            }
+                            $('#tblPermission').append("<tr><td>" + value.permissionId + "</td><td>" + value.permissionTitle + "</td><td>" + value.permissionUrl + "</td><td>" + value.iconCode + "</td><td>" + value.isMenu + "</td><td>" + Status + "</td><td><button id='permission" + value.permissionId + "' class='btn btn-warning btnRowUpdate'>Update</button>|"+Deactivate+"</td></tr>");
+                        });
+
+                    }
+                });
+            }
+
+            $(document).on('click', '.btnActivate', function () {
+                Id = $(this).attr('id');
+                Id = Id.replace("BtnActive", "");
+                jsonObject = { 'permissionId': Id};
+                $.ajax({
+                    type: "PUT",
+                    url: "http://localhost:44364/api/PermissionAPI/ActivatePermission",
+                    data: JSON.stringify(jsonObject),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        alert(response.status);
+                        $('#BtnActive' + response.id).parent().append('<button class="btn btn-primary btnDeactivate" id="BtnDeactive' + response.id + '">Deactivate</button>');
+                        $('#BtnActive' + response.id).parent().parent().find('td').eq(5).html('Active');
+                        $('#BtnActive' + response.id).remove();
+                    },
+                    error: function (errormsg) { prompt("", JSON.stringify(errormsg)) }
+                });
+            });
+            $(document).on('click', '.btnDeactivate', function () {
+                Id = $(this).attr('id');
+                Id = Id.replace("BtnDeactive", "");
+                jsonObject = { 'permissionId': Id};
+                $.ajax({
+                    type: "PUT",
+                    url: "http://localhost:44364/api/PermissionAPI/DeactivatePermission",
+                    data: JSON.stringify(jsonObject),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        alert(response.status);
+                        $('#BtnDeactive' + response.id).parent().append('<button class="btn btn-danger btnActivate" id="BtnActive' + response.id + '">Activate</button>');
+                        $('#BtnDeactive' + response.id).parent().parent().find('td').eq(5).html('Deactive');
+                        $('#BtnDeactive' + response.id).remove();
+
+                    },
+                    error: function (errormsg) { prompt("", JSON.stringify(errormsg)) }
+                });
+            });
+            var updateRow;
+            var Id
+            $(document).on('click', '.btnRowUpdate', function () {
+                Id = $(this).attr('id');
+                Id = Id.replace("permission", "");
+                updateRow = $(this).closest('tr');
+                title = $(updateRow).find('td').eq(1).html();
+                Url = $(updateRow).find('td').eq(2).html();
+                IconCode = $(updateRow).find('td').eq(3).html();
+                IsMenu = $(updateRow).find('td').eq(4).html();
+                $('#updatetxtPermissionTitle').val(title);
+                $('#updatetxtPermissionURL').val(Url);
+                $('#updatetxtIConCode').val(IconCode);
+                if (IsMenu == "true") {
+                    $('#updaterdIsMenuYes').prop('checked', true);
+                }
+                else {
+                    $('#updaterdIsMenuNo').prop('checked', true);
+                }
+                $('#modalUpdatePermission').show();
+            });
+            $('#closeModalS').click(function () {
+                $('#modalUpdatePermission').hide();
+            });
+            $('.UpdatePermission').click(function () {
+                var ISMenu;
+                title=$('#updatetxtPermissionTitle').val();
+                Url=$('#updatetxtPermissionURL').val();
+                IconCode = $('#updatetxtIConCode').val();
+                if ($('#updaterdIsMenuYes').prop('checked', true)) {
+                    ISMenu =true;
+                }
+                else {
+                    ISMenu = false;
+                }
+                $(updateRow).find('td').eq(1).html(title);
+                $(updateRow).find('td').eq(2).html(Url);
+                $(updateRow).find('td').eq(3).html(IconCode);
+                $(updateRow).find('td').eq(4).html(ISMenu);
+                var jsonObject = { 'permissionId': Id, 'permissionTitle': title, 'permissionUrl': Url, 'iconCode': IconCode, 'isMenu': IsMenu };
+                $.ajax({
+                    type: "PUT",
+                    url: "http://localhost:44364/api/PermissionAPI/UpdatePermission",
+                    data: JSON.stringify(jsonObject),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        alert(response.status)
+                    },
+                    error: function (errormsg) { prompt("", JSON.stringify(errormsg)) }
+                });
+                $('#modalUpdatePermission').hide();
+            });
+            $(document).on('click', '.btnRowDelete', function () {
+                Id = $(this).attr('id');
+                Id = Id.replace("permissionDelete", "");
+                var jsonObject = { 'permissionId': Id };
+                $.ajax({
+                    type: "DELETE",
+                    url: "http://localhost:44364/api/PermissionAPI/DeletePermission",
+                    data: JSON.stringify(jsonObject),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        alert(response.status)
+                    },
+                    error: function (errormsg) { prompt("", JSON.stringify(errormsg)) }
+                });
+            });
+</script>
+

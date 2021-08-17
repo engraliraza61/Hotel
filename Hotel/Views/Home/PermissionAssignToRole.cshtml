@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewData["Title"] = "PermissionAssignToRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-wrapper">
+    <div class="content">
+        <h1>Role</h1>
+
+        <div class="card">
+            <div class="card-header">
+                Add Role
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        RoleId
+                    </div>
+                    <div class="col-md-6">
+                        <input readonly="readonly" class="form-control" id="txtRole" value="@Html.Raw(ViewBag.id)" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        RoleTitle
+                    </div>
+                    <div class="col-md-6">
+                        <input readonly="readonly" class="form-control" id="txtRole" />
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+
+            </div>
+        </div>
+
+        <div class="container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>Permission Title</td>
+                        <td>Action</td>
+
+                    </tr>
+
+                </thead>
+                <tbody id="tblPermissions">
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            <button class="btn btn-success" id="SavePermisssions">Submit</button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var RoleId = @Html.Raw(ViewBag.id) ;
+        var data = { "roleId": RoleId };
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(data),
+            url: "http://localhost:44364/api/PermissionAPI/GetAllPermissionByRole",
+            contentType: "application/json",
+            success: function (response) {
+                $.each(response, function (index, value) {
+                    var Status = "";
+
+                    if (value.assignedId >0) {
+                        Status = "checked='checked'";
+                    }
+                    $('#tblPermissions').append("<tr><td>" + value.permissionTitle + "</td><td><input type='checkbox' class='permissionCheck' permissionId='" + value.permissionId + "' " + Status + " assignedId='" + value.assignedId + "'></td></tr>");
+                });
+
+            }
+        });
+        $('#SavePermisssions').click(function () {
+            var unAssigned = [];
+            $(".permissionCheck:checkbox:checked[assignedId=0]").each(function (index, obj) {
+
+                var permissionId = $(obj).attr('permissionId');
+
+                var PermissionObject = { "permissionId": permissionId };
+                unAssigned.push(PermissionObject);
+            });
+            var Assigned = [];
+            $(".permissionCheck:checkbox:not(:checked)[assignedId!=0]").each(function (index, obj) {
+
+                var assignedId = $(obj).attr('assignedId');
+
+                var PermissionObject = { "assignedId": assignedId };
+                Assigned.push(PermissionObject);
+            });
+            var data = { "roleId": @Html.Raw(ViewBag.id), "unAssignedPermissionList": unAssigned, "AssignedPermissionList": Assigned };
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(data),
+                url: "http://localhost:44364/api/UserAPI/ManagePermissionByRole",
+                contentType: "application/json",
+                success: function (response) {
+                    alert(response.status);
+                }
+            });
+
+        });
+    });
+</script>
+
+
