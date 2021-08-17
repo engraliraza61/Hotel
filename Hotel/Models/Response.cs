@@ -7,6 +7,7 @@ namespace Hotel.Models
 {
     public class Response
     {
+
         public string Status { get; set; } 
         public int Id { get; set; } 
         public string Token { get; set; } 

@@ -83,7 +83,7 @@ namespace Hotel.Controllers
                 ResponseObject.CurrentPage = PageNumber;
             }
             var UserList = (from fod in _project.User
-                            join std in _project.Role on fod.RoleId equals std.RoleId
+                            join std in _project.Role on fod.RoleTitle equals std.RoleTitle
                             select new
                             {
                                 UserId = fod.UserId,

@@ -76,26 +76,26 @@ namespace Hotel.Controllers
             }
             return Ok(res);
         }
-        [HttpPost]
-        [Route("DeleteRole")]
-        public async Task<ActionResult> DeleteRole(DeleteRoleModal obj)
-        {
-            await Task.Delay(0);
-            Response res = new Response();
-            try
-            {
-                var newRole = _project.Role.Find(obj.RoleId);
-                newRole.RoleStatus = 0;
-                _project.Role.Update(newRole);
-                _project.SaveChanges();
-                res.Status = "Delete successfull";
-            }
-            catch (Exception ex)
-            {
-                res.Status = ex.Message;
-            }
-            return Ok(res);
-        }
+        //[HttpPost]
+        //[Route("DeleteRole")]
+        //public async Task<ActionResult> DeleteRole(DeleteRoleModal obj)
+        //{
+        //    await Task.Delay(0);
+        //    Response res = new Response();
+        //    try
+        //    {
+        //        var newRole = _project.Role.Find(obj.RoleId);
+        //        newRole.RoleStatus = 0;
+        //        _project.Role.Update(newRole);
+        //        _project.SaveChanges();
+        //        res.Status = "Delete successfull";
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        res.Status = ex.Message;
+        //    }
+        //    return Ok(res);
+        //}
 
 
 
@@ -138,6 +138,49 @@ namespace Hotel.Controllers
                             }).ToList();
 
             return Ok(UserList);
+        }
+        [HttpPut]
+        [Route("ActivateRole")]
+        public async Task<ActionResult> ActivateRole(Roles obj)
+        {
+            await Task.Delay(0);
+            Response res = new Response();
+            try
+            {
+                var newPermission = _project.Role.Find(obj.RoleId);
+                newPermission.RoleStatus = 1;
+                _project.Role.Update(newPermission);
+                _project.SaveChanges();
+                res.Status = "Activate successfull";
+                res.Id = newPermission.RoleId;
+            }
+            catch (Exception ex)
+            {
+                res.Status = ex.Message;
+            }
+            return Ok(res);
+        }
+        [HttpPut]
+        [Route("DeactivateRole")]
+        public async Task<ActionResult> DeactivateRole(Roles obj)
+        {
+            await Task.Delay(0);
+            Response res = new Response();
+            try
+            {
+                var newPermission = _project.Role.Find(obj.RoleId);
+                newPermission.RoleStatus = 0;
+
+                _project.Role.Update(newPermission);
+                _project.SaveChanges();
+                res.Status = "Deactivate successfull";
+                res.Id = newPermission.RoleId;
+            }
+            catch (Exception ex)
+            {
+                res.Status = ex.Message;
+            }
+            return Ok(res);
         }
     }
 }

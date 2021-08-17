@@ -21,6 +21,7 @@ namespace Hotel.DBClass
         public int Rent { get; set; }
         public string PhoneNo { get; set; }
         public string Photo { get; set; }
+        public string Massage { get; set; }
         public DateTime InsertDateTime { get; set; }
         public short Status { get; set; }
     }

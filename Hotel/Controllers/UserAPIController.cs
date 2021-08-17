@@ -70,7 +70,7 @@ namespace Hotel.Controllers
                 newUser.UserStatus = 1;
                 newUser.UserTitle = obj.UserTitle;
                 newUser.Email = obj.Email;
-                newUser.RoleId = obj.RoleId;
+                newUser.RoleTitle = obj.RoleTitle;
                 _project.User.Update(newUser);
                 _project.SaveChanges();
                 res.Status = "Updated successfull";
@@ -170,7 +170,7 @@ namespace Hotel.Controllers
                 ResponseObject.CurrentPage = PageNumber;
             }
             var UserList = (from fod in _project.User
-                            join std in _project.Role on fod.RoleId equals std.RoleId
+                            join std in _project.Role on fod.RoleTitle equals std.RoleTitle
                             select new
                             {
                                 UserId = fod.UserId,

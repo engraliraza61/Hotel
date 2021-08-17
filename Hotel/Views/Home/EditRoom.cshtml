@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@*@Html.Raw(ViewBag.roomId)*@
+
 <div class="page-wrapper">
     <div class="content">
         <div class="row">
@@ -24,7 +26,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Room type</label>
-                                <select class="select">
+                                <select class="form-control">
                                     <option>Select</option>
                                     <option selected>Single</option>
                                     <option>Double</option>
@@ -40,7 +42,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>AC/Non AC</label>
-                                <select class="select">
+                                <select class="form-control">
                                     <option>Select</option>
                                     <option selected>AC</option>
                                     <option>Non Ac</option>
@@ -50,7 +52,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Food</label>
-                                <select class="select">
+                                <select class="form-control">
                                     <option>Select</option>
                                     <option>Free Breakfast</option>
                                     <option>Free Lunch</option>
@@ -66,7 +68,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Bed Count</label>
-                                <select class="select">
+                                <select class="form-control">
                                     <option>Select</option>
                                     <option selected>1</option>
                                     <option>2</option>
@@ -80,7 +82,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Charges for Cancellation</label>
-                                <select class="select">
+                                <select class="form-control">
                                     <option>Select</option>
                                     <option>Free</option>
                                     <option>5% Before 24 Hours</option>
@@ -104,7 +106,7 @@
                         </div>
                     </div>
                     <div class="custom-file mb-3">
-                        <input type="file" class="custom-file-input" name="filename">
+                        <input type="file" class="custom-file-input form-control" name="filename">
                         <label class="custom-file-label">Choose file (Photo)</label>
                     </div>
                     <div class="form-group">
