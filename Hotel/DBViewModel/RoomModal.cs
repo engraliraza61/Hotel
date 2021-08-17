@@ -12,9 +12,9 @@ namespace Hotel.DBViewModel
         public string AC { get; set; }
         public string Food { get; set; }
         public int BedCount { get; set; }
-        public string ChargesForCancellation { get; set; }
+        public string ChargeForCancellation { get; set; }
         public int Rent { get; set; }
-        public String MobileNo { get; set; }
+        public String PhoneNo { get; set; }
         public String Photo { get; set; }
         public String Massage { get; set; }
     }

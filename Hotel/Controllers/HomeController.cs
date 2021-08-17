@@ -61,6 +61,14 @@ namespace Hotel.Controllers
         {
             return View();
         }
+        public IActionResult AllRoom()
+        {
+            return View();
+        }
+        public IActionResult EditRoom()
+        {
+            return View();
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

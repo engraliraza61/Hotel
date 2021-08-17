@@ -121,7 +121,7 @@
 
 
 <script>
-
+    
     $(document).ready(function () {
         $('.saveRoom').click(function () {
             RoomNumber = $('#roomNumberId').val();
@@ -135,7 +135,7 @@
             Photo = $('#idFile').val();
             Massage = $('#idMassage').val();
             alert(ChargeForCancellation);
-            var jsonObject = { "roomType": RoomType, "aC": AC, "food": Food, 'bedCount': BedCount, 'chargesForCancellation': ChargeForCancellation, 'rent': Rent, 'mobileNo': MobileNo, 'photo': Photo, 'massage': Massage };
+            var jsonObject = { 'roomNumber': RoomNumber, "roomType": RoomType, "aC": AC, "food": Food, 'bedCount': BedCount, 'chargeForCancellation': ChargeForCancellation, 'rent': Rent, 'phoneNo': MobileNo, 'photo': Photo, 'massage': Massage };
             $.ajax({
                 type: "POST",
                 url: "http://localhost:44364/api/RoomAPI/InsertRoom",
