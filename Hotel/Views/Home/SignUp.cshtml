@@ -4,149 +4,246 @@
 }
 
 
+
 <!doctype html>
 <html lang="en">
 
-<!-- Mirrored from thememakker.com/templates/oreo/realestate/html/light/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Aug 2021 15:36:42 GMT -->
+<!-- Mirrored from templates.iqonic.design/prox/html/backend/auth-sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Aug 2021 17:08:29 GMT -->
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="RealEstate, Admin, Dashboard, template, UI kit, RealEstate Admin, Bootstrap 4x">
-    <meta name="author" content="Thememakker">
-    <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
+    <title>Hotel - Bootstrap 4 Admin Template</title>
 
-    <title>Sign Up</title>
-    <!-- Favicon-->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <!-- Custom Css -->
-    <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/authentication.css">
-    <link rel="stylesheet" href="/assets/css/color_skins.css">
+    <link rel="stylesheet" href="/login/css/backend.min.css">
+    <link rel="stylesheet" href="/login/vendor/%40fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/login/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" href="/login/vendor/remixicon/fonts/remixicon.css">
+    <link rel="stylesheet" href="/login/vendor/%40icon/dripicons/dripicons.css">
+
+    <link rel='stylesheet' href='/login/vendor/fullcalendar/core/main.css' />
+    <link rel='stylesheet' href='/login/vendor/fullcalendar/daygrid/main.css' />
+    <link rel='stylesheet' href='/login/vendor/fullcalendar/timegrid/main.css' />
+    <link rel='stylesheet' href='/login/vendor/fullcalendar/list/main.css' />
+    <link rel="stylesheet" href="/login/vendor/mapbox/mapbox-gl.css">
 </head>
+<body class=" ">
+    <!-- loader Start -->
+    <div id="loading">
+        <div id="loading-center">
+        </div>
+    </div>
+    <!-- loader END -->
 
-<body class="theme-purple authentication sidebar-collapse">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top navbar-transparent">
-        <div class="container">
-            <div class="navbar-translate n_logo">
-                <a class="navbar-brand" href="javascript:void(0);" title="" target="_blank">Oreo</a>
-                <button class="navbar-toggler" type="button">
-                    <span class="navbar-toggler-bar bar1"></span>
-                    <span class="navbar-toggler-bar bar2"></span>
-                    <span class="navbar-toggler-bar bar3"></span>
-                </button>
-            </div>
-            <div class="navbar-collapse">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0);">Search Result</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" title="Follow us on Twitter" href="javascript:void(0);" target="_blank">
-                            <i class="zmdi zmdi-twitter"></i>
-                            <p class="d-lg-none d-xl-none">Twitter</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" title="Like us on Facebook" href="javascript:void(0);" target="_blank">
-                            <i class="zmdi zmdi-facebook"></i>
-                            <p class="d-lg-none d-xl-none">Facebook</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" title="Follow us on Instagram" href="javascript:void(0);" target="_blank">
-                            <i class="zmdi zmdi-instagram"></i>
-                            <p class="d-lg-none d-xl-none">Instagram</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-white btn-round" href="sign-in.html">SIGN IN</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- End Navbar -->
-    <div class="page-header">
-        <div class="page-header-image" style="background-image:url(/assets/img/login.jpg)"></div>
-        <div class="container">
-            <div class="col-md-12 content-center">
-                <div class="card-plain">
-                    <form class="form" method="" action="#">
-                        <div class="header">
-                            <div class="logo-container">
-                                <img src="https://thememakker.com/templates/oreo/realestate/html/assets/images/logo.svg" alt="">
+    <div class="wrapper">
+        <section class="login-content">
+            <img src="/login/images/login/02.png" class="lb-img" alt="">
+            <img src="/login/images/login/03.png" class="rb-img" alt="">
+            <div class="container h-100">
+                <div class="row align-items-center justify-content-center h-100">
+                    <div class="col-12">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 mb-lg-0 mb-4 mt-lg-0 mt-4">
+                                <img src="/login/images/login/01.png" class="img-fluid w-80" alt="">
                             </div>
-                            <h5>Sign Up</h5>
-                            <span>Register a new membership</span>
-                        </div>
-                        <div class="content">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Enter User Name">
-                                <span class="input-group-addon">
-                                    <i class="zmdi zmdi-account-circle"></i>
-                                </span>
-                            </div>
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Enter Email">
-                                <span class="input-group-addon">
-                                    <i class="zmdi zmdi-email"></i>
-                                </span>
-                            </div>
-                            <div class="input-group">
-                                <input type="password" placeholder="Password" class="form-control" />
-                                <span class="input-group-addon">
-                                    <i class="zmdi zmdi-lock"></i>
-                                </span>
+                            <div class="col-lg-6">
+                                <h2 class="mb-2">Sign Up</h2>
+                                <p>Enter your personal details and start journey with us.</p>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="floating-label form-group">
+                                            <input class="floating-input form-control" type="text" placeholder=" " id="signUpName">
+                                            <label>Name</label>
+                                        </div>
+                                        <label id="firstNameMassage"></label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="floating-label form-group">
+                                            <input class="floating-input form-control" type="email" placeholder=" " id="signUpEmail">
+                                            <label>Email</label>
+                                        </div>
+                                        <label id="EmailMassage"></label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="floating-label form-group">
+                                            <input class="floating-input form-control" type="text" placeholder=" " id="signUpPhoneNo">
+                                            <label>Phone No.</label>
+                                        </div>
+                                        <lable id="phoneMassage"></lable>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="floating-label form-group">
+                                            <input class="floating-input form-control" type="password" placeholder=" " id="signUpPassword">
+                                            <label>Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="floating-label form-group">
+                                            <input class="floating-input form-control" type="password" placeholder=" " id="signUpConfirmPassword">
+                                            <label>Confirm Password</label>
+                                        </div>
+                                        <label id="PasswordMassage"></label>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="custom-control custom-checkbox mb-3">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">I agree with the terms of use</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary signUpBtn">Sign Up</button>
+                                <p class="mt-3">
+                                    Already have an Account
+                                    <a href="/Home/SignIn" class="text-primary">Sign In</a>
+                                </p>
                             </div>
                         </div>
-                        <div class="checkbox">
-                            <input id="terms" type="checkbox">
-                            <label for="terms">
-                                I read and agree to the <a href="javascript:void(0);">terms of usage</a>
-                            </label>
-                        </div>
-                        <div class="footer text-center">
-                            <a href="index.html" class="btn btn-primary btn-round btn-lg btn-block waves-effect waves-light">SIGN UP</a>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        <footer class="footer">
-            <div class="container">
-                <nav>
-                    <ul>
-                        <li><a href="http://thememakker.com/contact/" target="_blank">Contact Us</a></li>
-                        <li><a href="http://thememakker.com/about/" target="_blank">About Us</a></li>
-                        <li><a href="javascript:void(0);">FAQ</a></li>
-                    </ul>
-                </nav>
-                <div class="copyright">
-                    &copy;
-                    <script>
-                    document.write(new Date().getFullYear())
-                    </script>,
-                    <span>Designed by <a href="http://thememakker.com/" target="_blank">ThemeMakker</a></span>
-                </div>
-            </div>
-        </footer>
+        </section>
     </div>
 
-    <!-- Jquery Core Js -->
-    <script src="/assets/bundles/libscripts.bundle.js"></script>
-    <script src="/assets/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
-    <script>
-   $(".navbar-toggler").on('click',function() {
-    $("html").toggleClass("nav-open");
-});
-    </script>
+    <!-- Backend Bundle JavaScript -->
+    <script src="/login/js/backend-bundle.min.js"></script>
+
+    <!-- Flextree Javascript-->
+    <script src="/login/js/flex-tree.min.js"></script>
+    <script src="/login/js/tree.js"></script>
+
+    <!-- Table Treeview JavaScript -->
+    <script src="/login/js/table-treeview.js"></script>
+
+    <!-- Masonary Gallery Javascript -->
+    <script src="/login/js/masonry.pkgd.min.js"></script>
+    <script src="/login/js/imagesloaded.pkgd.min.js"></script>
+
+    <!-- Mapbox Javascript -->
+    <script src="/login/js/mapbox-gl.js"></script>
+    <script src="/login/js/mapbox.js"></script>
+
+    <!-- Fullcalender Javascript -->
+    <script src='/login/vendor/fullcalendar/core/main.js'></script>
+    <script src='/login/vendor/fullcalendar/daygrid/main.js'></script>
+    <script src='/login/vendor/fullcalendar/timegrid/main.js'></script>
+    <script src='/login/vendor/fullcalendar/list/main.js'></script>
+
+    <!-- SweetAlert JavaScript -->
+    <script src="/login/js/sweetalert.js"></script>
+
+    <!-- Vectoe Map JavaScript -->
+    <script src="/login/js/vector-map-custom.js"></script>
+
+    <!-- Chart Custom JavaScript -->
+    <script src="/login/js/customizer.js"></script>
+
+    <!-- Chart Custom JavaScript -->
+    <script src="/login/js/chart-custom.js"></script>
+
+    <!-- slider JavaScript -->
+    <script src="/login/js/slider.js"></script>
+
+    <!-- app JavaScript -->
+    <script src="/login/js/app.js"></script>
 </body>
 
-<!-- Mirrored from thememakker.com/templates/oreo/realestate/html/light/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Aug 2021 15:36:42 GMT -->
+<!-- Mirrored from templates.iqonic.design/prox/html/backend/auth-sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Aug 2021 17:08:29 GMT -->
 </html>
+
+
+<script>
+    $(document).ready(function () {
+        function NameVerify() {
+            if ($('#signUpName').val().length <= 2) {
+                $('#firstNameMassage').html('length must be greater than 2');
+                $('#firstNameMassage').css('color', 'red');
+            }
+            else {
+                $('#firstNameMassage').html('length is in best form');
+                $('#firstNameMassage').css('color', 'green');
+            }
+        }
+        $('#signUpName').blur(function () {
+            NameVerify();
+        });
+        function PasswordVerify() {
+            if ($('#signUpConfirmPassword').val() == $('#signUpPassword').val()) {
+                $('#PasswordMassage').html('Password Matched');
+                $('#PasswordMassage').css('color', 'green');
+            }
+            else {
+                $('#PasswordMassage').html('Password Not Matched');
+                $('#PasswordMassage').css('color', 'red');
+            }
+        }
+        $('#signUpConfirmPassword').blur(function () {
+            PasswordVerify();
+        });
+        function PhoneVerify() {
+            if ($('#signUpPhoneNo').val().length != 11) {
+                $('#phoneMassage').html('Please enter 11 digit phone No!');
+                $('#phoneMassage').css('color', 'red');
+            }
+            else {
+                $('#phoneMassage').html('length is in best form');
+                $('#phoneMassage').css('color', 'green');
+            }
+        }
+        $('#signUpPhoneNo').blur(function () {
+            PhoneVerify();
+        });
+        $('#signUpEmail').blur(function () {
+            email = $('#signUpEmail').val();
+            alert(email);
+            jsonObject = { 'email': email };
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:44364/api/UserAPI/EmailCheck",
+                data: JSON.stringify(jsonObject),
+                contentType: 'application/json',
+                success: function (response) {
+                    if (response.status == 'Email verified') {
+                        $('#EmailMassage').html('Email Verified');
+                        $('#EmailMassage').css('color', 'green');
+                    }
+                    else {
+                        $('#EmailMassage').html('Email already exist');
+                        $('#EmailMassage').css('color', 'red');
+                        $('#studnetEmail').focus();
+                    }
+                },
+                error: function (errormsg) { prompt("", JSON.stringify(errormsg)) }
+            });
+        });
+        $('.signUpBtn').click(function () {
+            Name = $('#signUpName').val();
+            email = $('#signUpEmail').val();
+            phoneNo = $('#signUpPhoneNo').val();
+            Password = $('#signUpPassword').val();
+            ConfirmPassword = $('#signUpConfirmPassword').val();
+            var jsonObject = { "userTitle": Name, "email": email, 'phoneNo': phoneNo, "password": Password };
+            if (Password == ConfirmPassword) {
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:44364/api/UserAPI/InsertUserA",
+                    contentType: "application/json",
+                    data: JSON.stringify(jsonObject),
+                    success: function (response) {
+                        if (response.status == "Insertion successfull") {
+                            $('#signUpName').val('');
+                            $('#signUpEmail').val('');
+                            $('#signUpPhoneNo').val('');
+                            $('#signUpPassword').val('');
+                            $('#signUpConfirmPassword').val('');
+                            window.location.href = '/Home/Login';
+                        }
+
+                    }
+                });
+            }
+            else {
+                alert('password not matched');
+            }
+        });
+    });
+</script>

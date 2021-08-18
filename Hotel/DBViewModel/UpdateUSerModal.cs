@@ -10,6 +10,7 @@ namespace Hotel.DBViewModel
         public int UserId { get; set; }
         public string UserTitle { get; set; }
         public string Email { get; set; }
+        public string PhoneNo { get; set; }
         public string RoleTitle { get; set; }
     }
 }

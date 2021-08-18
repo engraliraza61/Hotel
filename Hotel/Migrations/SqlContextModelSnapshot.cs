@@ -158,6 +158,9 @@ namespace Hotel.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PhoneNo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("RoleTitle")
                         .HasColumnType("nvarchar(max)");
 

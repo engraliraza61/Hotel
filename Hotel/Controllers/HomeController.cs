@@ -65,6 +65,10 @@ namespace Hotel.Controllers
         {
             return View();
         }
+        public IActionResult AllRooms()
+        {
+            return View();
+        }
         public IActionResult EditRoom(string roomId)
         {
             ViewBag.roomId = roomId;

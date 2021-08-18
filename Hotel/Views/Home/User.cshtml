@@ -31,6 +31,14 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
+                        PhoneNo
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control" type="text" id="txtUpdatePhoneNo" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
                         Role
                     </div>
                     <div class="col-md-6">
@@ -42,7 +50,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="updateUserCloseModal">Close</button>
                 <button type="button" class="btn btn-primary" id="btnUpdateUser">Update</button>
             </div>
         </div>
@@ -52,57 +60,16 @@
 
 
 
-<div class="modal" id="modalUpdateRole" style="align-self:initial">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="modal-header">
-                    <h3>Student Update</h3>
-                </div>
-                <div class="modal-body">
-                    <div>
-                        <h1>Role</h1>
-                        <div class="card">
-                            <div class="card-header">
-                                Add Role
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        RoleTitle
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input class="form-control" id="UpdatetxtRole" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <div align="center"><button class="btn btn-success UpdateRole">UPDATE</button></div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="closeModalS" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 
 
 
 <div class="page-wrapper">
     <div class="content">
-        <h1>User</h1>
+        <h1>Admin Area</h1>
 
         <div class="card">
             <div class="card-header">
-                Add User
+                Editing
             </div>
             <div class="card-body">
                 <div class="row">
@@ -119,6 +86,14 @@
                     </div>
                     <div class="col-md-6">
                         <input class="form-control" type="text" id="txtEmail" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        PhoneNo
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control" type="text" id="txtPhoneNo" />
                     </div>
                 </div>
                 <div class="row">
@@ -148,59 +123,16 @@
         </div>
 
 
-        <!-- Modal -->
-        <div class="modal fade" id="modalUpdateUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Update User</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body ">
-                        <div class="row">
-                            <div class="col-md-6">
-                                Name
-                            </div>
-                            <div class="col-md-6">
-                                <input class="form-control" type="text" id="txtUpdateName" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                Email
-                            </div>
-                            <div class="col-md-6">
-                                <input class="form-control" type="text" id="txtUpdateEmail" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                Role
-                            </div>
-                            <div class="col-md-6">
-                                <select id="lstUpdateRole" class="form-control">
-                                    <option value="0">---Select Role---</option>
-                                </select>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="btnUpdateUser">Update</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
-        <div class="container" id="tblActive">
+        <div class="container">
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <td>UserID</td>
                         <td>Name</td>
                         <td>Email</td>
+                        <td>PhoneNo</td>
                         <td>RoleTitle</td>
                         <td>Status</td>
                         <td>Actions</td>
@@ -208,23 +140,6 @@
 
                 </thead>
                 <tbody id="tblUser">
-                </tbody>
-            </table>
-        </div>
-        <div class="container" id="tblDeactive" style="display:none">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <td>UserID</td>
-                        <td>Name</td>
-                        <td>Email</td>
-                        <td>RoleTitle</td>
-                        <td>Status</td>
-                        <td>Actions</td>
-                    </tr>
-
-                </thead>
-                <tbody id="tblDeactiveUser">
                 </tbody>
             </table>
         </div>
@@ -239,9 +154,10 @@
         $('#btnAddUser').click(function () {
             var Name = $('#txtName').val();
             var Email = $('#txtEmail').val();
+            var PhoneNo = $('#txtPhoneNo').val();
             var Password = $('#txtPassword').val();
             var RoleTitle = $('#lstRole').val();
-            var jsonObject = { "userTitle": Name, "email": Email, "password": Password, "roleTitle": RoleTitle };
+            var jsonObject = { "userTitle": Name, "email": Email, 'phoneNo': PhoneNo, "password": Password, "roleTitle": RoleTitle };
             $.ajax({
                 type: "POST",
                 url: "http://localhost:44364/api/UserAPI/InsertUser",
@@ -264,9 +180,9 @@
         $('#btnUpdateUser').click(function () {
             var Name = $('#txtUpdateName').val();
             var Email = $('#txtUpdateEmail').val();
+            var PhoneNo = $('#txtUpdatePhoneNo').val();
             var RoleID = $('#lstUpdateRole').val();
-            alert(ua)
-            var jsonObject = { "userTitle": Name, "email": Email, "userId": userID, "RoleTitle": RoleID };
+            var jsonObject = { "userTitle": Name, "email": Email, 'phoneNo': PhoneNo, "userId": userID, "RoleTitle": RoleID };
             $.ajax({
                 type: "POST",
                 url: "http://localhost:44364/api/UserAPI/UpdateUser",
@@ -281,10 +197,14 @@
                         $('#txtUpdateName').val('');
                         $('#txtUpdateEmail').val('');
                         $('#lstUpdateRole').val('');
+                        $('#modalUpdateUser').modal('hide');
                     }
 
                 }
             });
+        });
+        $('#updateUserCloseModal').click(function () {
+            $('#modalUpdateUser').modal('hide');
         });
         $('#btnDeactiveUser').click(function () {
             $('#tblDeactiveUser').html('');
@@ -303,13 +223,14 @@
             updateRow = $(this).closest('tr');
             var Name = $(updateRow).find('td').eq(1).html();
             var Email = $(updateRow).find('td').eq(2).html();
+            var PhoneNo = $(updateRow).find('td').eq(3).html();
             $('#txtUpdateName').val(Name);
             $('#txtUpdateEmail').val(Email);
+            $('#txtUpdatePhoneNo').val(PhoneNo);
             $('#lstUpdateRole').val(roleID);
             $('#modalUpdateUser').modal('show');
-
-
         });
+        $
         $(document).on('click', '.btnRowDelete', function () {
             userID = $(this).attr('id');
 
@@ -363,7 +284,7 @@
                 $.each(response, function (index, value) {
                     //var Status = "Deactive";
                     /*value.userSatus = "Active";*/
-                    $('#tblUser').append("<tr><td>" + value.userId + "</td><td>" + value.userTitle + "</td><td>" + value.email + "</td><td>" + value.roleTitle + "</td><td>" + value.userStatus + "</td><td><button class='btn btn-danger btnRowDelete' id='" + value.userId + "'>Delete</button> | <button class='btn btn-warning btnRowUpdate' id='" + value.userId + "' value ='" + value.roleID + "'>Update</button></td></tr>");
+                    $('#tblUser').append("<tr><td>" + value.userId + "</td><td>" + value.userTitle + "</td><td>" + value.email + "</td><td>" + value.phoneNo + "</td><td>" + value.roleTitle + "</td><td>" + value.userStatus + "</td><td><button class='btn btn-danger btnRowDelete' id='" + value.userId + "'>Delete</button> | <button class='btn btn-warning btnRowUpdate' id='" + value.userId + "' value ='" + value.roleID + "'>Update</button></td></tr>");
 
                 });
 

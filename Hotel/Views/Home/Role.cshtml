@@ -153,8 +153,6 @@
         $('.UpdateRole').click(function () {
             RoleName = $('#UpdatetxtRole').val();
             $(updateRow).find('td').eq(1).html(RoleName);
-            alert(RoleName);
-            alert(Id);
             var jsonObject = { 'roleId': Id, 'roleTitle': RoleName };
             $.ajax({
                 type: "POST",

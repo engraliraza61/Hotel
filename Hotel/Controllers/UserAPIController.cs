@@ -48,8 +48,6 @@ namespace Hotel.Controllers
                 _project.User.Add(newUser);
                 _project.SaveChanges();
                 res.Status = "Insertion successfull";
-
-
             }
             catch (Exception ex)
             {
@@ -57,6 +55,32 @@ namespace Hotel.Controllers
             }
             return Ok(res);
         }
+
+
+        [HttpPost]
+        [Route("InsertUserA")]
+        public async Task<ActionResult> InsertUserA(UserModal obj)
+        {
+            await Task.Delay(0);
+            Response res = new Response();
+            try
+            {
+                Users newUser = _map.Map<Users>(obj);
+                newUser.UserStatus = 1;
+                newUser.Password = EncryptDecrypt.Encrypt(newUser.Password);
+                newUser.InsertionDateTime = DateTime.UtcNow;
+                newUser.RoleTitle = "User";
+                _project.User.Add(newUser);
+                _project.SaveChanges();
+                res.Status = "Insertion successfull";
+            }
+            catch (Exception ex)
+            {
+                res.Status = ex.Message;
+            }
+            return Ok(res);
+        }
+
 
         [HttpPost]
         [Route("UpdateUser")]
@@ -70,6 +94,7 @@ namespace Hotel.Controllers
                 newUser.UserStatus = 1;
                 newUser.UserTitle = obj.UserTitle;
                 newUser.Email = obj.Email;
+                newUser.PhoneNo = obj.PhoneNo;
                 newUser.RoleTitle = obj.RoleTitle;
                 _project.User.Update(newUser);
                 _project.SaveChanges();
@@ -236,6 +261,30 @@ namespace Hotel.Controllers
                 {
                     res.Status = "login successfully";
                     res.Token = JWTs.GenerateJSONWebToken(newstd, _config);
+                }
+            }
+            catch
+            {
+                res.Status = "Failed";
+            }
+
+            return res;
+        }
+        [HttpPost]
+        [Route("EmailCheck")]
+        public Response EmailCheck(Users stdObject)
+        {
+            Response res = new Response();
+            try
+            {
+                Users newstd = _project.User.Where(std => std.Email.Equals(stdObject.Email)).FirstOrDefault();
+                if (newstd == default)
+                {
+                    res.Status = "Email verified";
+                }
+                else
+                {
+                    res.Status = "Email already exist";
                 }
             }
             catch

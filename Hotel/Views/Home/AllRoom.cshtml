@@ -11,7 +11,7 @@
                 <h4 class="page-title">All Rooms</h4>
             </div>
             <div class="col-sm-8 col-8 text-right m-b-20">
-                <a href="add-room.html" class="btn btn btn-primary btn-rounded float-right"><i class="fas fa-plus"></i> Add Room</a>
+                <a href="/Home/AddRoom" class="btn btn btn-primary btn-rounded float-right"><i class="fas fa-plus"></i> Add Room</a>
             </div>
         </div>
         <div class="row">
@@ -52,12 +52,9 @@
 <script src="~/js/jquery.twbsPagination.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-
         GetRooms(1);
-        GetRoom();
     });
     function GetRooms(pageNumber) {
-        roomNumber=@Html.Raw(ViewBag.id)
         $.ajax({
             type: "GET",
             url: "http://localhost:44364/api/RoomAPI/GetAllRooms?PageNumber=" + pageNumber,
@@ -74,7 +71,7 @@
                     visiblePages: 5,
                     startPage: response.currentPage,
                     onPageClick: function (event, page) {
-                        //console.info(page + ' (from options)');
+                        console.info(page + ' (from options)');
                         GetUser(page);
                     }
                 }).on('page', function (event, page) {
