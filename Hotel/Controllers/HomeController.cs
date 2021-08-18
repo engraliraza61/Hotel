@@ -1,4 +1,5 @@
 ﻿using Hotel.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -18,11 +19,16 @@ namespace Hotel.Controllers
         {
             MyHostingPath = currentHosting;
         }
-
-        public IActionResult Index(string Token)
+        public IActionResult Index()
         {
-            ViewBag.Token = Token;
-            return View();
+            if (Request.Cookies["token"] == null)
+            {
+                return RedirectToActionPermanent("Login");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]

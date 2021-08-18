@@ -260,7 +260,8 @@ namespace Hotel.Controllers
                 else
                 {
                     res.Status = "login successfully";
-                    res.Token = JWTs.GenerateJSONWebToken(newstd, _config);
+                    //res.Token = JWTs.GenerateJSONWebToken(newstd, _config);
+                    res.Token = stdObject.Email;
                 }
             }
             catch

@@ -10,8 +10,8 @@ namespace Hotel.Models
 
         public string Status { get; set; } 
         public int Id { get; set; } 
-        public string Token { get; set; } 
-        
+        public string Token { get; set; }
+
     }
     public class ListClass : Response
     {
