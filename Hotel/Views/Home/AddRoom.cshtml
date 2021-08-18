@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link href="~/css/toast.css" rel="stylesheet" />
+
 <div class="page-wrapper">
     <div class="content">
         <div class="row">
@@ -119,7 +121,7 @@
         </div>
     </div>
 </div>
-
+first
 
 <script>
     
@@ -129,22 +131,60 @@
             RoomType = $('#idRoomType').val();
             AC = $('#idAC').val();
             Food = $('#idFood').val();
+            Photo = $('#idFile').attr('src');
             BedCount = $('#idBedCount').val();
             ChargeForCancellation = $('#idForCancellation').val();
             Rent = $('#idRent').val();
             MobileNo = $('#idMobileNo').val();
-            Photo = $('#idFile').val();
             Massage = $('#idMassage').val();
-            alert(ChargeForCancellation);
-            var jsonObject = { 'roomNumber': RoomNumber, "roomType": RoomType, "aC": AC, "food": Food, 'bedCount': BedCount, 'chargeForCancellation': ChargeForCancellation, 'rent': Rent, 'phoneNo': MobileNo, 'photo': Photo, 'massage': Massage };
+            alert(Photo);
+            var jsonObject = { 'roomNumber': RoomNumber, "roomType": RoomType, "aC": AC, "food": Food, 'bedCount': BedCount, 'chargeForCancellation': ChargeForCancellation, 'rent': Rent, 'phoneNo': MobileNo, 'photo': Photo,'massage': Massage };
             $.ajax({
                 type: "POST",
                 url: "http://localhost:44364/api/RoomAPI/InsertRoom",
                 contentType: "application/json",
                 data: JSON.stringify(jsonObject),
                 success: function (response) {
-                    if (response.status == "Room Added") {
+                    //var NewRoomId = response.id;
+                    //var TotalFiles = document.getElementById('idFile').files.length;
+                    //if (TotalFiles > 0) {
+                    //    var newform = new FormData();
+                    //    newform.append("RoomId", NewRoomId);
+                    //    for (var i = 0; i < TotalFiles; i++) {
+                    //        newform.append("Image", document.getElementById('idFile').files[i]);
+                    //    }
+                    //    $.ajax({
+                    //        type: 'post',
+                    //        url: '/Home/MYFileUploadingMethod',
+                    //        data: newform,
+                    //        dataType: 'json',
+                    //        contentType: false,
+                    //        processData: false,
+                    //        success: function (fileResposne) {
+                    //            if (fileResposne == 'File Uploaded successfully') {
+
+                    //                alert(fileResposne);
+                    //                $('#roomNumberId').val('');
+                    //                $('#idRoomType').val('');
+                    //                $('#idAC').val('');
+                    //                $('#idFood').val('');
+                    //                $('#idBedCount').val('');
+                    //                $('#idForCancellation').val('');
+                    //                $('#idRent').val('');
+                    //                $('#idMobileNo').val('');
+                    //                $('#idFile').val('');
+                    //                $('#idMassage').val('');
+                    //            }
+                    //            else {
+                    //                alert(fileResposne);
+                    //            }
+                    //        }
+                    //    });
+
+                    //} else {
+                    if (response.status == 'Room Added') {
                         alert(response.status);
+                       // launch_toast("Room Added Successfully", 'white', 'fa fa-bell');
                         $('#roomNumberId').val('');
                         $('#idRoomType').val('');
                         $('#idAC').val('');
@@ -155,7 +195,7 @@
                         $('#idMobileNo').val('');
                         $('#idFile').val('');
                         $('#idMassage').val('');
-                    }
+                    }   
                 },
                 error: function (errormsg) { prompt("", JSON.stringify(errormsg)) }
             });
@@ -173,7 +213,8 @@
                 }
             }
         });
+       
     });
 </script>
-
+<script src="~/js/site.js"></script>
 

@@ -1,9 +1,11 @@
 ﻿using Hotel.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,11 +13,10 @@ namespace Hotel.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        IWebHostEnvironment MyHostingPath;
+        public HomeController(IWebHostEnvironment currentHosting)
         {
-            _logger = logger;
+            MyHostingPath = currentHosting;
         }
 
         public IActionResult Index(string Token)
@@ -23,6 +24,52 @@ namespace Hotel.Controllers
             ViewBag.Token = Token;
             return View();
         }
+
+        [HttpPost]
+        public IActionResult MYFileUploadingMethod()
+        {
+
+            string RoomId = Request.Form["RoomId"].ToString();
+
+            MyHostingPath.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+
+            if (Request.Form.Files.Count > 0)
+            {
+                string FileCompletePath = "";
+                string FileExtention = "";
+                string UniqueId = "";
+                string BAsePath = "";
+                string DBFileAddress = "";
+                for (int i = 0; i < Request.Form.Files.Count; i++)
+                {
+                    BAsePath = MyHostingPath.WebRootPath + "/UserFiles/";
+                    UniqueId = Guid.NewGuid().ToString();
+                    FileExtention = Path.GetExtension(Request.Form.Files[i].FileName);
+                    FileCompletePath = BAsePath + UniqueId + FileExtention;
+
+                    DBFileAddress = "/UserFiles/" + UniqueId + FileExtention;
+
+
+                    using (var FileUploadingStream = new FileStream(FileCompletePath, FileMode.Create))
+                    {
+                        Request.Form.Files[i].CopyTo(FileUploadingStream);
+                    }
+                    //if (MySqlDatabase.ExecNonQuery("update Student set StudentPicture='" + DBFileAddress + "' where StudentId=" + RoomId) == 0)
+                    //{
+                    //    return Json("File Uploaded but Data Save Failed");
+                    //}
+
+
+                }
+                return Json("File Uploaded successfully");
+            }
+            else
+            {
+                return Json("No File Uploaded");
+            }
+
+        }
+
 
         public IActionResult Privacy()
         {
