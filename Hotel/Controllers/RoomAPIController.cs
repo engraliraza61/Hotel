@@ -42,6 +42,7 @@ namespace Hotel.Controllers
                 _project.Room.Add(NewRoom);
                 _project.SaveChanges();
                 res.Status = "Room Added";
+                res.Id = NewRoom.RoomId;
             }
             catch (Exception ex)
             {

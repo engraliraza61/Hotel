@@ -1,7 +1,11 @@
-﻿using Hotel.Models;
+﻿using Hotel.Context;
+using Hotel.DBClass;
+using Hotel.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -15,9 +19,13 @@ namespace Hotel.Controllers
     public class HomeController : Controller
     {
         IWebHostEnvironment MyHostingPath;
-        public HomeController(IWebHostEnvironment currentHosting)
+        SqlContext _project;
+        IConfiguration _config;
+        public HomeController(IWebHostEnvironment currentHosting, SqlContext project, IConfiguration config)
         {
             MyHostingPath = currentHosting;
+            _project=project;
+            _config = config;
         }
         public IActionResult Index()
         {
@@ -35,8 +43,7 @@ namespace Hotel.Controllers
         public IActionResult MYFileUploadingMethod()
         {
 
-            string RoomId = Request.Form["RoomId"].ToString();
-
+            string roomId = Request.Form["RoomId"].ToString();
             MyHostingPath.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
 
             if (Request.Form.Files.Count > 0)
@@ -60,11 +67,21 @@ namespace Hotel.Controllers
                     {
                         Request.Form.Files[i].CopyTo(FileUploadingStream);
                     }
-                    //if (MySqlDatabase.ExecNonQuery("update Student set StudentPicture='" + DBFileAddress + "' where StudentId=" + RoomId) == 0)
-                    //{
-                    //    return Json("File Uploaded but Data Save Failed");
-                    //}
 
+
+
+
+                    //try
+                    //{
+                    //    Rooms newList = _project.Room.Find(roomId);
+                    //    newList.Photo = FileCompletePath;
+                    //    _project.Room.Add(newList);
+                    //    _project.SaveChanges();
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    return Json(ex.Message);
+                    //}
 
                 }
                 return Json("File Uploaded successfully");
