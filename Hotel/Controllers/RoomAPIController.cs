@@ -58,6 +58,48 @@ namespace Hotel.Controllers
             return RoomList;
         }
 
+
+        [HttpPut]
+        [Route("DeactivateRoom")]
+        public Response DeactivateRoom(Rooms obj)
+        {
+            Response res = new Response();
+            try
+            {
+                Rooms newList = _project.Room.Find(obj.RoomId);
+                newList.Status = 0;
+                _project.Room.Update(newList);
+                _project.SaveChanges();
+                res.Status = "deactivate Successfully";
+                res.Id = newList.RoomId;
+            }
+            catch (Exception ex)
+            {
+                res.Status = ex.Message;
+            }
+            return res;
+        }
+        [HttpPut]
+        [Route("ActivateRoom")]
+        public Response ActivateRoom(Rooms obj)
+        {
+            Response res = new Response();
+            try
+            {
+                Rooms newList = _project.Room.Find(obj.RoomId);
+                newList.Status = 1;
+                _project.Room.Update(newList);
+                _project.SaveChanges();
+                res.Id = newList.RoomId;
+                res.Status = "Activate Successfully";
+            }
+            catch (Exception ex)
+            {
+                res.Status = ex.Message;
+            }
+            return res;
+        }
+
         [HttpPut]
         [Route("updateRoom")]
         public Response updateRoom(Rooms obj)

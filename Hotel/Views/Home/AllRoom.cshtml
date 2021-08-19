@@ -53,6 +53,44 @@
 <script type="text/javascript">
     $(document).ready(function () {
         GetRooms(1);
+        $(document).on('click', '.removeRoom', function () {
+            Id = $(this).attr('id');
+            Id = Id.replace("RemoveRoom", "");
+            jsonObject = { 'roomId': Id };
+            $.ajax({
+                type: "PUT",
+                data: JSON.stringify(jsonObject),
+                url: "http://localhost:44364/api/RoomAPI/DeactivateRoom",
+                contentType: "application/json",
+                success: function (response) {
+                        if (response.status == 'deactivate Successfully') {
+                            alert(response.status);
+                            $('#RemoveRoom' + response.id).parent().append("<a              class='dropdown - item' href='#' data-toggle='modal' data-target='#active_room'><i id='ActivateRoom" + value.roomId + "' class='m - r - 5 ActivateRoom' /> <b>Activate</b></a>");
+                            $('#RemoveRoom' + response.id).parent().parent().find('td').eq(7).html('Deactive');
+                            $('#RemoveRoom' + response.id).remove();
+                        }
+                }
+            });
+        });
+        $(document).on('click', '.ActivateRoom', function () {
+            Id = $(this).attr('id');
+            Id = Id.replace("ActivateRoom", "");
+            jsonObject = { 'roomId': Id };
+            $.ajax({
+                type: "PUT",
+                data: JSON.stringify(jsonObject),
+                url: "http://localhost:44364/api/RoomAPI/ActivateRoom",
+                contentType: "application/json",
+                success: function (response) {
+                        if (response.status == 'Activate Successfully') {
+                            alert(response.status);
+                            $('#ActivateRoom' + response.id).parent().append("<a class='dropdown-item' href='#' data-toggle='modal' data-target='#delete_room'><i id='RemoveRoom" + value.roomId + "' class='m - r - 5 removeRoom'/><b> Deactivate</b></a>");
+                            $('#ActivateRoom' + response.id).parent().parent().find('td').eq(7).html('Active');
+                            $('#ActivateRoom' + response.id).remove();
+                        }
+                }
+            });
+        });
     });
     function GetRooms(pageNumber) {
         $.ajax({
@@ -61,7 +99,15 @@
             contentType: "application/json",
             success: function (response) {
                 $.each(response.data, function (index, value) {
-                    $('#tblRoom').append("<tr><td>" + value.roomNumber + "</td><td>" + value.roomType + "</td><td>" + value.ac + "</td><td>" + value.food + "</td><td>" + value.bedCount + "</td><td>" + value.phoneNo + "</td><td>" + value.rent + "</td><td>" + value.status + "</td><td><div align='right' class='dropdown dropdown-action'><a href='#' class='action-icon dropdown-toggle' data-toggle='dropdown' aria-expanded='false'><i class='fas fa-ellipsis-v'/></a><div class='dropdown-menu dropdown-menu-right'><a class='dropdown-item' href='/Home/EditRoom/"+value.roomId+"'><i class='fas fa-pencil-alt m-r-5'/> Edit</a><a class='dropdown-item' href='#' data-toggle='modal' data-target='#delete_room'><i id='DeleteRowOfRoom' class='fas fa-trash-alt m-r-5'/> Delete</a></div></div></td></tr>");
+                    if (value.status == 1) {
+                        var Status = 'Active';
+                        var Activate = "<a class='dropdown-item' href='#' data-toggle='modal' data-target='#delete_room'><i id='RemoveRoom" + value.roomId + "' class='m - r - 5 removeRoom'/><b> Deactivate</b></a>"
+                    }
+                    else {
+                        Status = 'Deactive';
+                        Activate = "<a class='dropdown-item' href='#' data-toggle='modal' data-target='#active_room'><i id='ActivateRoom" + value.roomId + "' class='m-r-5 ActivateRoom' /> <b>Activate</b></a>"
+                    }
+                    $('#tblRoom').append("<tr><td>" + value.roomNumber + "</td><td>" + value.roomType + "</td><td>" + value.ac + "</td><td>" + value.food + "</td><td>" + value.bedCount + "</td><td>" + value.phoneNo + "</td><td>" + value.rent + "</td><td>" + Status + "</td><td><div align='right' class='dropdown dropdown-action'><a href='#' class='action-icon dropdown-toggle' data-toggle='dropdown' aria-expanded='false'><i class='fas fa-ellipsis-v'/></a><div class='dropdown-menu dropdown-menu-right'><a class='dropdown-item' href='/Home/EditRoom/" + value.roomId + "'><i class='-alt m-r-5'/><b> Edit</b></a>" + Activate + "</div></div></td></tr>");
 
 
                 });
@@ -72,7 +118,7 @@
                     startPage: response.currentPage,
                     onPageClick: function (event, page) {
                         console.info(page + ' (from options)');
-                        GetUser(page);
+                        //GetUser(page);
                     }
                 }).on('page', function (event, page) {
                     console.info(page + ' (from event listening)');
