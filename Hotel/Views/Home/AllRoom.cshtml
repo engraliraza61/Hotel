@@ -61,7 +61,7 @@
             contentType: "application/json",
             success: function (response) {
                 $.each(response.data, function (index, value) {
-                    $('#tblRoom').append("<tr><td>" + value.roomNumber + "</td><td>" + value.roomType + "</td><td>" + value.ac + "</td><td>" + value.food + "</td><td>" + value.bedCount + "</td><td>" + value.phoneNo + "</td><td>" + value.rent + "</td><td>" + value.status + "</td><td><div class='dropdown dropdown-action'><a href='#' class='action-icon dropdown-toggle' data-toggle='dropdown' aria-expanded='false'><i class='fas fa-ellipsis-v'/></a><div class='dropdown-menu dropdown-menu-right'><a class='dropdown-item' href='/Home/EditRoom/"+value.roomId+"'><i class='fas fa-pencil-alt m-r-5'/> Edit</a><a class='dropdown-item' href='#' data-toggle='modal' data-target='#delete_room'><i class='fas fa-trash-alt m-r-5'/> Delete</a></div></div></td></tr>");
+                    $('#tblRoom').append("<tr><td>" + value.roomNumber + "</td><td>" + value.roomType + "</td><td>" + value.ac + "</td><td>" + value.food + "</td><td>" + value.bedCount + "</td><td>" + value.phoneNo + "</td><td>" + value.rent + "</td><td>" + value.status + "</td><td><div align='right' class='dropdown dropdown-action'><a href='#' class='action-icon dropdown-toggle' data-toggle='dropdown' aria-expanded='false'><i class='fas fa-ellipsis-v'/></a><div class='dropdown-menu dropdown-menu-right'><a class='dropdown-item' href='/Home/EditRoom/"+value.roomId+"'><i class='fas fa-pencil-alt m-r-5'/> Edit</a><a class='dropdown-item' href='#' data-toggle='modal' data-target='#delete_room'><i id='DeleteRowOfRoom' class='fas fa-trash-alt m-r-5'/> Delete</a></div></div></td></tr>");
 
 
                 });

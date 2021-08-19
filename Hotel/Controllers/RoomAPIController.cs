@@ -49,6 +49,45 @@ namespace Hotel.Controllers
             }
             return Ok(res);
         }
+
+        [HttpPost]
+        [Route("updatedRoom")]
+        public List<Rooms> updatedRoom(Rooms obj)
+        {
+            List<Rooms> RoomList = _project.Room.Where(r => r.RoomId == obj.RoomId).ToList();
+            return RoomList;
+        }
+
+        [HttpPut]
+        [Route("updateRoom")]
+        public Response updateRoom(Rooms obj)
+        {
+            Response res = new Response();
+            try
+            {
+                Rooms newList = _project.Room.Find(obj.RoomId);
+                newList.RoomNumber = obj.RoomNumber;
+                newList.RoomType = obj.RoomType;
+                newList.AC = obj.AC;
+                newList.Rent = obj.Rent;
+                newList.Food = obj.Food;
+                newList.BedCount = obj.BedCount;
+                newList.ChargeForCancellation = obj.ChargeForCancellation;
+                newList.PhoneNo = obj.PhoneNo;
+                newList.Photo = obj.PhoneNo;
+                newList.Massage = obj.Massage;
+                _project.Room.Update(newList);
+                _project.SaveChanges();
+                res.Status = "update Successfully";
+            }
+            catch (Exception ex)
+            {
+                res.Status = ex.Message;
+            }
+            return res;
+        }
+
+
         [HttpGet]
         [Route("GetAllRooms")]
         public async Task<ActionResult> GetAllRooms(int PageNumber)

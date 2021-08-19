@@ -21,14 +21,14 @@ namespace Hotel.Controllers
         }
         public IActionResult Index()
         {
-            if (Request.Cookies["token"] == null)
-            {
-                return RedirectToActionPermanent("Login");
-            }
-            else
-            {
+            //if (Request.Cookies["token"] == null)
+            //{
+            //    return RedirectToActionPermanent("Login");
+            //}
+            //else
+            //{
                 return View();
-            }
+            //}
         }
 
         [HttpPost]
@@ -122,9 +122,9 @@ namespace Hotel.Controllers
         {
             return View();
         }
-        public IActionResult EditRoom(string roomId)
+        public IActionResult EditRoom(string Id)
         {
-            ViewBag.roomId = roomId;
+            ViewBag.Id = Id;
             return View();
         }
 
