@@ -23,8 +23,7 @@ namespace Hotel.Mapping
 
             var claims = new[] {
              new Claim("userId", userInfo.UserId.ToString()),
-             new Claim("userName", userInfo.UserTitle.ToString()),
-             new Claim("phoneEmail", userInfo.Email.ToString()),
+             new Claim(ClaimTypes.Email, userInfo.Email),
              new Claim("password", userInfo.Password.ToString()),
             };
             var token = new JwtSecurityToken(config["Jwt:Issuer"],

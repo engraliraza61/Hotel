@@ -260,6 +260,7 @@ namespace Hotel.Controllers
                 else
                 {
                     res.Status = "login successfully";
+                    //string id = HttpContext.User.FindFirstValue("userId");
                     //res.Token = JWTs.GenerateJSONWebToken(newstd, _config);
                     res.Token = stdObject.Email;
                 }

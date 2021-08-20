@@ -143,7 +143,7 @@
                 success: function (response) {
                     alert(response.status);
                     if (response.status == 'login successfully') {
-                        $.cookie("token", response.token);
+                        alert(response.Token);
                         window.location.href = '/Home/';
                     }
 

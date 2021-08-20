@@ -29,14 +29,14 @@ namespace Hotel.Controllers
         }
         public IActionResult Index()
         {
-            //if (Request.Cookies["token"] == null)
-            //{
-            //    return RedirectToActionPermanent("Login");
-            //}
-            //else
-            //{
+            if (Request.Cookies["token"] == null)
+            {
+                return RedirectToActionPermanent("Login");
+            }
+            else
+            {
                 return View();
-            //}
+            }
         }
 
         [HttpPost]
