@@ -352,7 +352,7 @@
             data: JSON.stringify(jsonObject),
             success: function (response) {
                 $.each(response, function (index, value) {
-                    $('#menuList').append("<li class='nav-item'><a href=" + value.permissionUrl + " class='nav-link'><i class='nav-icon fas " + value.permissionIcon + "'></i><p> " + value.permissionTitle + " <span class='right badge badge-danger'>New</span></p></a></li>");
+                    $('#menuList').append(/*"<li class='nav-item'><a href=" + value.permissionUrl + " class='nav-link'><i class='nav-icon fas " + value.permissionIcon + "'></i><p> " + value.permissionTitle + " <span class='right badge badge-danger'>New</span></p></a></li>"*/" <a href=" + value.permissionUrl + ">" + value.permissionTitle + "</a>");
                 });
             }
         });

@@ -155,6 +155,9 @@ namespace Hotel.Migrations
                     b.Property<DateTime>("InsertionDateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Massage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
@@ -163,6 +166,15 @@ namespace Hotel.Migrations
 
                     b.Property<string>("RoleTitle")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoomBooked")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RoomBookedArrivalDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("RoomBookedDepartDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("UserStatus")
                         .HasColumnType("int");

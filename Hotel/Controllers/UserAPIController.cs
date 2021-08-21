@@ -55,6 +55,33 @@ namespace Hotel.Controllers
             }
             return Ok(res);
         }
+        [HttpPost]
+        [Route("RoomBooked")]
+        public async Task<ActionResult> RoomBooked(UpdateUSerModal obj)
+        {
+            await Task.Delay(0);
+            Response res = new Response();
+            try
+            {
+                var newUser = _project.User.Find(obj.UserId);
+                newUser.UserStatus = 1;
+                newUser.RoomBooked = obj.RoomBooked;
+                newUser.UserTitle = obj.UserTitle;
+                newUser.RoomBookedArrivalDate = obj.RoomBookedArrivalDate;
+                newUser.RoomBookedDepartDate = obj.RoomBookedDepartDate;
+                newUser.Massage = obj.Massage;
+                newUser.Email = obj.Email;
+                newUser.PhoneNo = obj.PhoneNo;
+                _project.User.Update(newUser);
+                _project.SaveChanges();
+                res.Status = "Room No:"+newUser.RoomBooked+" is Booked";
+            }
+            catch (Exception ex)
+            {
+                res.Status = ex.Message;
+            }
+            return Ok(res);
+        }
 
 
         [HttpPost]

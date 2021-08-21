@@ -16,6 +16,10 @@ namespace Hotel.DBClass
         public string Password { get; set; }
         public string Email { get; set; }
         public string PhoneNo { get; set; }
+        public string RoomBooked { get; set; }
+        public DateTime RoomBookedArrivalDate { get; set; }
+        public DateTime RoomBookedDepartDate { get; set; }
+        public string Massage { get; set; }
         public int UserStatus { get; set; }
         public string RoleTitle { get; set; }
         public DateTime InsertionDateTime { get; set; }

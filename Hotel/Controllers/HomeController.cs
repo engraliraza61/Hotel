@@ -111,6 +111,11 @@ namespace Hotel.Controllers
             ViewBag.id = id;
             return View();
         }
+        public IActionResult BookedRoom(string id)
+        {
+            ViewBag.id = id;
+            return View();
+        }
         public IActionResult User()
         {
             return View();
