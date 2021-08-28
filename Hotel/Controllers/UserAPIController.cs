@@ -183,7 +183,26 @@ namespace Hotel.Controllers
             return Ok(res);
         }
 
-
+        [HttpPost]
+        [Route("ActivateUser")]
+        public async Task<ActionResult> ActivateUser(DeleteUSerModal obj)
+        {
+            await Task.Delay(0);
+            Response res = new Response();
+            try
+            {
+                var newUser = _project.User.Find(obj.UserId);
+                newUser.UserStatus = 1;
+                _project.User.Update(newUser);
+                _project.SaveChanges();
+                res.Status = "ActivateUser successfull";
+            }
+            catch (Exception ex)
+            {
+                res.Status = ex.Message;
+            }
+            return Ok(res);
+        }
 
 
         [HttpPost]
@@ -195,7 +214,7 @@ namespace Hotel.Controllers
             try
             {
                 var newUser = _project.User.Find(obj.UserId);
-                newUser.UserStatus = obj.UserStatus;
+                newUser.UserStatus = 0;
                 _project.User.Update(newUser);
                 _project.SaveChanges();
                 res.Status = "Delete successfull";

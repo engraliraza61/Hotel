@@ -237,7 +237,8 @@
         $
         $(document).on('click', '.btnRowDelete', function () {
             userID = $(this).attr('id');
-
+            userID = userID.replace("btnRowDelete", "");
+            alert(userID);
             var Status = 0;
             var jsonObject = { "userId": userID, "userStatus": Status };
             $.ajax({
@@ -256,19 +257,20 @@
                 }
             });
         });
-        $(document).on('click', '.btnRowActive', function () {
+        $(document).on('click', '.btnRowActivate', function () {
             userID = $(this).attr('id');
-            var Status = 1;
-            var jsonObject = { "userId": userID, "userStatus": Status };
+            userID = userID.replace("btnRowActivate", "");
+            alert(userID);
+            var jsonObject = { "userId": userID,};
             $.ajax({
                 type: "POST",
-                url: "http://localhost:44364/api/UserAPI/DeleteUser",
+                url: "http://localhost:44364/api/UserAPI/ActivateUser",
                 contentType: "application/json",
                 data: JSON.stringify(jsonObject),
                 success: function (response) {
-                    if (response.status == "Delete successfull") {
-                        $('#tblDeactiveUser').html('');
-                        GetDeactiveUser();
+                    if (response.status == "ActivateUser successfull") {
+                        $('#tblUser').html('');
+                        GetUser();
                         alert("User Activated Successfully");
 
                     }
@@ -288,10 +290,17 @@
                 $.each(response, function (index, value) {
                     //var Status = "Deactive";
                     /*value.userSatus = "Active";*/
-                    $('#tblUser').append("<tr><td>" + value.userId + "</td><td>" + value.userTitle + "</td><td>" + value.email + "</td><td>" + value.phoneNo + "</td><td>" + value.roomBooked + "</td><td>" + value.roomBookedArrivalDate + "</td><td>" + value.roomBookedDepartDate + "</td><td>" + value.roleTitle + "</td><td>" + value.userStatus + "</td><td><button class='btn btn-danger btnRowDelete' id='" + value.userId + "'>Delete</button> | <button class='btn btn-warning btnRowUpdate' id='" + value.userId + "' value ='" + value.roleID + "'>Update</button></td></tr>");
-
+                    if (value.userStatus == 0) {
+                        var Status = "Deactive";
+                        var Deactivate = "<button class='btn btn-info btnRowActivate' id='btnRowActivate" + value.userId + "'>Activate</button>";
+                    }
+                    else {
+                        Status = "Active";
+                        Deactivate = "<button class='btn btn-danger btnRowDelete' id='btnRowDelete" + value.userId + "'>Deactivate</button>";
+                    }
+                    $('#tblUser').append("<tr><td>" + value.userId + "</td><td>" + value.userTitle + "</td><td>" + value.email + "</td><td>" + value.phoneNo + "</td><td>" + value.roomBooked + "</td><td>" + value.roomBookedArrivalDate + "</td><td>" + value.roomBookedDepartDate + "</td><td>" + value.roleTitle + "</td><td>" + Status + "</td><td> <button class='btn btn-warning btnRowUpdate' id='" + value.userId + "' value ='" + value.roleID + "'>Update</button>|" + Deactivate + "</td></tr>");
                 });
-
+                
             }
         });
     }

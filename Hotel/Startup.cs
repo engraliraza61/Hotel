@@ -70,6 +70,7 @@ namespace Hotel
                     }
                  });
             });
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
