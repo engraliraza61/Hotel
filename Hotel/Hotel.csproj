@@ -24,4 +24,11 @@
     <Folder Include="wwwroot\RoomImages\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\UserFiles\1d880462-ceab-4f3d-a509-a9197388596a.jpg" />
+    <None Include="wwwroot\UserFiles\a6d8c01d-afc4-4387-ac3f-d3705c79f2f5.jpg" />
+    <None Include="wwwroot\UserFiles\bd13dde8-47f1-4152-b30d-233fd62e0d3c.jpg" />
+    <None Include="wwwroot\UserFiles\d140649e-5631-460f-9f00-5a425cc8a73e.jpg" />
+  </ItemGroup>
+
 </Project>

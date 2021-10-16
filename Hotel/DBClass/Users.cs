@@ -9,8 +9,8 @@ namespace Hotel.DBClass
 {
     public class Users
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+                [Key]
+                [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserTitle { get; set; }
         public string Password { get; set; }
